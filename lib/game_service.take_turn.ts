@@ -15,6 +15,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
     }
 
     const dynamoDBDocument = getDdbDocument();
+    dynamoDBDocument.batchGet({ RequestItems: { "games": { Keys: [{ gameId: event.pathParameters.id }] } } })
     const getResponse = await dynamoDBDocument.get({ Key: { gameId: event.pathParameters.id}, 
         TableName: "games"});
 
